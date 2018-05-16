@@ -4,7 +4,7 @@
 **项目说明**<br>  
 - 项目基于maven的多profile环境配置，打包时需要选择(test/pro/dev)打包运行的环境。<br>
 <br>
-##**项目特点**<br>  
+**项目特点**<br>  
 - 友好的代码结构及注释，便于阅读及二次开发 。<br>
 - 前端页面采用jsp+freemaker，多视图解析处理，优先jsp,采用bootstrap-table强大灵活的表格插件渲染数据。 <br> 
 - 后端https,配置swagger在线文档，方便编写API接口文档。<br> 
@@ -19,7 +19,7 @@
 - 配置fileupload(默认配置最大100MB)，下载文件，生成二维码，二维码打印，mail发邮件等功能。<br>
 - 配置poi和csv简单导出excel功能点,poi目前是多sheet智能导出。<br>
  <br> 
-##**项目结构**
+**项目结构**
 <br>
 springMvc<br>
 ├─doc  (isec,qdone两个数据库)项目SQL语句<br>
@@ -53,12 +53,12 @@ springMvc<br>
 │  ├─mybatis-config.xml   mybatis配置<br>
 │  └─spring-mvc.xml springMvc配置<br>
 <br>
- ##**环境配置:**<br>
+ **环境配置:**<br>
 - 1.项目依赖,redis-cluster集群,activeMq,solr,redis工具。<br>
 - 2.doc目录里面有初始化sql，运行项目前，请先创建mysql。<br>
 - 3.工具地址:https://pan.baidu.com/s/1Bm7udGJc40xEENFgnJjsIw <br>
 <br>
- ##**启动说明:**<br>
+ **启动说明:**<br>
 - 1.运行doc目录里面的sql文件，创建对应数据库isec,qdone<br>
 - 2.启动redis集群,(127.0.0.1:6379~6384，密码:qdone)<br>
 - 3.启动activeMq(默认单机版)<br>
@@ -70,7 +70,7 @@ springMvc<br>
 - 5.配置tomcat,加入mvc.war，启动tomcat<br>
 - 6.访问http://localhost:ip:port/mvc/swagger-ui.html<br>
 <br> 	
- ##**用户反馈：**<br>
+**用户反馈：**<br>
 - Git仓库： https://github.com/apple987/mvc_action<br>
 - 邮箱地址: m15171479289@163.com <br>
 		
