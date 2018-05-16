@@ -69,7 +69,7 @@ springMvc<br>
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;勾选&nbsp;&nbsp; update snapshots和skip tests<br>
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行run之后,拷贝target目录下mvc.war<br>
 - 6.配置tomcat,加入mvc.war，启动tomcat<br>
-- 7.访问http://localhost:ip:port/mvc/swagger-ui.html<br>
+- 7.访问http://ip:port/mvc/swagger-ui.html<br>
 <br> 	
 **用户反馈：**<br>
 - Git仓库： https://github.com/apple987/mvc_action<br>
