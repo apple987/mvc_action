@@ -63,10 +63,10 @@ springMvc<br>
 - 2.启动redis集群,(127.0.0.1:6379~6384，密码:qdone)<br>
 - 3.启动activeMq(默认单机版)<br>
 - 4.eclipse工具下，项目运行maven build:<br>
-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>goals:clean install</font><br>
-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>profile:test/pro/dev(三选一，必填)</font><br>
-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>勾选 update snapshots和skip tests</font><br>
-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>执行run之后,拷贝target目录下mvc.war</font><br>
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goals:&nbsp;&nbsp;clean install<br>
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;profile:&nbsp;&nbsp;test/pro/dev(三选一，必填)<br>
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;勾选&nbsp;&nbsp; update snapshots和skip tests<br>
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行run之后,拷贝target目录下mvc.war<br>
 - 5.配置tomcat,加入mvc.war，启动tomcat<br>
 - 6.访问http://localhost:ip:port/mvc/swagger-ui.html<br>
 <br> 	
