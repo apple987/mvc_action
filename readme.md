@@ -7,7 +7,7 @@
 **项目特点**<br>  
 - 友好的代码结构及注释，便于阅读及二次开发 。<br>
 - 前端页面采用jsp+freemaker，多视图解析处理，优先jsp,采用bootstrap-table强大灵活的表格插件渲染数据。 <br> 
-- 后端https,配置swagger在线文档，方便编写API接口文档。<br> 
+- 后端配置swagger在线文档，方便编写API接口文档。<br> 
 - 引入druib,fastjson,cors,xss,redis-cluster,redis配置。<br>
 - 引入API模板，根据token作为登录令牌，极大的方便了APP接口开发。<br>
 - 配置全局异常处理,mybatis,pagehelper分页。<br>
