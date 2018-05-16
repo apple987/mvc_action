@@ -62,13 +62,14 @@ springMvc<br>
 - 1.运行doc目录里面的sql文件，创建对应数据库isec,qdone<br>
 - 2.启动redis集群,(127.0.0.1:6379~6384，密码:qdone)<br>
 - 3.启动activeMq(默认单机版)<br>
-- 4.eclipse工具下，项目运行maven build:<br>
+- 4.启动solr(默认单机版)<br>
+- 5.eclipse工具下，项目运行maven build:<br>
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goals:&nbsp;&nbsp;clean install<br>
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;profile:&nbsp;&nbsp;test/pro/dev(三选一，必填)<br>
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;勾选&nbsp;&nbsp; update snapshots和skip tests<br>
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行run之后,拷贝target目录下mvc.war<br>
-- 5.配置tomcat,加入mvc.war，启动tomcat<br>
-- 6.访问http://localhost:ip:port/mvc/swagger-ui.html<br>
+- 6.配置tomcat,加入mvc.war，启动tomcat<br>
+- 7.访问http://localhost:ip:port/mvc/swagger-ui.html<br>
 <br> 	
 **用户反馈：**<br>
 - Git仓库： https://github.com/apple987/mvc_action<br>
