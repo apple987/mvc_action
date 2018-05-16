@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainsoft.mvc.mapper.DataInterrupt">
+
+    <resultMap id="DataInterruptMap" type="com.rainsoft.mvc.model.DataInterrupt">
+        <result property="startTime" column="START_TIME"/>
+        <result property="endTime" column="END_TIME"/>
+        <result property="importTime" column="IMPORT_TIME"/>
+        <result property="breakSource" column="BREAK_SOURCE"/>
+        <result property="status" column="STATUS"/>
+    </resultMap>
+
+    <sql id="allColumns">
+        START_TIME,END_TIME,IMPORT_TIME,BREAK_SOURCE,STATUS
+    </sql>
+    
+    
+
+    <sql id="dynamicWhere">
+   	   <trim  suffixOverrides="," prefix="WHERE" prefixOverrides="AND">
+          <if test="breakSource!=null and breakSource!=''">
+             AND BREAK_SOURCE = #{breakSource}
+          </if>
+          <if test="status!=null and status!=''">
+             AND STATUS = #{status}
+          </if>
+       </trim>
+    </sql>
+
+    <!-- select -->
+    <select id="select" parameterType="java.util.HashMap"  resultMap="DataInterruptMap">
+      SELECT <include refid="allColumns" />
+      FROM DATA_BREAK_LOG  <include refid="dynamicWhere" />  
+    </select>
+    
+    <!-- 中断超时报警 -->
+    <select id="selectDataAlert" parameterType="java.util.HashMap"  resultMap="DataInterruptMap">
+        SELECT <include refid="allColumns" />
+        FROM DATA_BREAK_LOG  WHERE 1=1 AND STATUS ='2'
+        <![CDATA[AND (ABS(END_TIME - START_TIME) * 24 * 60 >= #{rangeTime})]]>
+    </select>
+    
+    <select id="selectDataTest" parameterType="java.util.HashMap"  resultType="com.rainsoft.mvc.model.DataInterrupt">
+        SELECT <include refid="allColumns" />  FROM DATA_BREAK_LOG
+    </select>
+    
+     <select id="selectTestCase" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+        SELECT <include refid="allColumns" />  FROM DATA_BREAK_LOG  limit 1,1 
+    </select>
+
+    <!-- view -->
+    <select id="view" parameterType="java.lang.Integer"  resultMap="DataInterruptMap">
+      SELECT <include refid="allColumns" />
+      FROM DATA_BREAK_LOG WHERE break_source = #{breakSource}
+    </select>
+
+    <!-- queryBean -->
+    <select id="queryBean" parameterType="com.rainsoft.mvc.model.DataInterrupt"  resultMap="DataInterruptMap">
+      SELECT <include refid="allColumns" />
+      FROM DATA_BREAK_LOG  <include refid="dynamicWhere" /> 
+    </select>
+
+    <!-- insert -->
+    <insert id="insert" parameterType="com.rainsoft.mvc.model.DataInterrupt">
+      INSERT INTO DATA_BREAK_LOG (<include refid="allColumns" />) 
+      VALUES(
+        #{startTime},#{endTime},#{importTime}
+        ,#{breakSource},#{status}
+        )
+    </insert>
+
+    <!-- update -->
+    <update id="update" parameterType="com.rainsoft.mvc.model.DataInterrupt">
+      UPDATE  DATA_BREAK_LOG  SET
+             STATUS = '1'
+		WHERE BREAK_SOURCE = #{breakSource} 
+		and IMPORT_TIME = #{importTime}
+		and START_TIME = #{startTime}
+        and END_TIME = #{endTime}
+    </update>
+
+    <!-- delete -->
+    <delete id="delete" parameterType="java.lang.Integer">
+      DELETE FROM DATA_BREAK_LOG WHERE BREAK_SOURCE = #{BREAK_SOURCE}
+    </delete>
+
+</mapper>

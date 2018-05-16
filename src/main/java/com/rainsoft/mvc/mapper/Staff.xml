@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainsoft.mvc.mapper.Staff">
+
+    <resultMap id="StaffMap" type="com.rainsoft.mvc.model.Staff">
+        <result property="pkid" column="PKID"/>
+        <result property="sname" column="SNAME"/>
+        <result property="sex" column="SEX"/>
+        <result property="age" column="AGE"/>
+        <result property="createDate" column="CREATE_DATE"/>
+        <result property="createby" column="CREATEBY"/>
+        <result property="updateDate" column="UPDATE_DATE"/>
+        <result property="police" column="POLICE"/>
+        <result property="updateby" column="UPDATEBY"/>
+    </resultMap>
+
+    <sql id="allColumns">
+        PKID,SNAME,SEX,AGE,CREATE_DATE,CREATEBY,
+        UPDATE_DATE,POLICE,UPDATEBY
+    </sql>
+
+    <sql id="dynamicWhere">
+   	   <trim  suffixOverrides="," prefix="WHERE" prefixOverrides="AND">
+          <if test="pkid!=null and pkid!=''">
+              AND PKID = #{pkid}
+          </if>
+          <if test="sname!=null and sname!=''">
+             AND SNAME like CONCAT('%', #{sname}, '%')   
+          </if>
+          <if test="sex!=null and sex!=''">
+             AND SEX like '%' || #{sex} || '%' 
+          </if>
+          <if test="age!=null and age!=''">
+             AND AGE like '%' || #{age} || '%' 
+          </if>
+          <if test="createDate!=null and createDate!=''">
+             AND CREATE_DATE like '%' || #{createDate} || '%' 
+          </if>
+          <if test="createby!=null and createby!=''">
+             AND CREATEBY like '%' || #{createby} || '%' 
+          </if>
+          <if test="updateDate!=null and updateDate!=''">
+             AND UPDATE_DATE like '%' || #{updateDate} || '%' 
+          </if>
+          <if test="police!=null and police!=''">
+             AND POLICE like '%' || #{police} || '%' 
+          </if>
+          <if test="updateby!=null and updateby!=''">
+             AND UPDATEBY like '%' || #{updateby} || '%' 
+          </if>
+       </trim>
+    </sql>
+
+    <!-- select -->
+    <select id="select" parameterType="java.util.HashMap"  resultMap="StaffMap">
+      SELECT <include refid="allColumns" />
+      FROM STAFF  <include refid="dynamicWhere" />  
+    </select>
+
+    <!-- view -->
+    <select id="view" parameterType="java.lang.String"  resultMap="StaffMap">
+      SELECT <include refid="allColumns" />
+      FROM STAFF WHERE pkid = #{pkid,jdbcType=VARCHAR}
+    </select>
+
+    <!-- insert -->
+    <insert id="insert" parameterType="com.rainsoft.mvc.model.Staff">
+      INSERT INTO STAFF (<include refid="allColumns" />) 
+      VALUES(
+        #{pkid,jdbcType=VARCHAR},#{sname,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{createDate,jdbcType=TIMESTAMP},#{createby,jdbcType=VARCHAR},
+        #{updateDate,jdbcType=TIMESTAMP},#{police,jdbcType=LONGVARBINARY},#{updateby,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- update -->
+    <update id="update" parameterType="com.rainsoft.mvc.model.Staff">
+      UPDATE  STAFF  
+         <set>    
+             <if test="sname!=null">SNAME = #{sname,jdbcType=VARCHAR},</if>
+             SEX = #{sex,jdbcType=VARCHAR},
+             AGE = #{age,jdbcType=INTEGER},
+             CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+             CREATEBY = #{createby,jdbcType=VARCHAR},
+             UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+             POLICE = #{police,jdbcType=LONGVARBINARY},
+             UPDATEBY = #{updateby,jdbcType=VARCHAR}
+         </set>
+		WHERE pkid = #{pkid,jdbcType=VARCHAR}
+    </update>
+
+    <!-- delete -->
+    <delete id="delete" parameterType="java.lang.String">
+      DELETE FROM STAFF WHERE pkid = #{pkid,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd  
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+				        http://www.springframework.org/schema/jms
+				        http://www.springframework.org/schema/jms/spring-jms-4.3.xsd">
+	
+	<import resource="spring-database.xml"/>
+	
+    <!-- activeMQ连接信息，XA事务 -->
+	<bean id="jmsXaConnectionFactory" class="org.apache.activemq.ActiveMQXAConnectionFactory">
+        <property name="brokerURL" value="${mq.brokerURL}" />
+        <property name="userName" value="${mq.userName}" />
+        <property name="password" value="${mq.password}" />
+    </bean>
+    
+	<bean id="jmsConnectionFactory"  
+          class="com.atomikos.jms.AtomikosConnectionFactoryBean" init-method="init" destroy-method="close">  
+        <property name="uniqueResourceName" value="XAactiveMQ"/>  
+        <property name="xaConnectionFactory" ref="jmsXaConnectionFactory"/>  
+        <property name="poolSize" value="50"/>
+    </bean>			        
+   
+	<bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<description>队列模式模型</description>
+		<constructor-arg ref="jmsConnectionFactory" />
+		<property name="receiveTimeout" value="${mq.receiveTimeout}" />
+		<property name="pubSubDomain" value="false" />
+		<property name="defaultDestination" ref="mvcQueue"></property>
+		<property name="sessionTransacted" value="true" />
+		<property name="messageConverter">
+            <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
+        </property>
+	</bean>
+	
+	<bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<description>发布/订阅模式模型</description>
+		<constructor-arg ref="jmsConnectionFactory" />
+		<property name="receiveTimeout" value="${mq.receiveTimeout}" />
+		<property name="pubSubDomain" value="true" />
+		<property name="sessionTransacted" value="true" />
+		<property name="defaultDestination" ref="mvcTopic"></property>
+	</bean>
+	<!-- 定义Queue监听器 -->
+	<jms:listener-container
+		destination-type="queue" 
+		container-type="default" 
+		connection-factory="jmsConnectionFactory" 
+		transaction-manager="springTransactionManager"
+		acknowledge="transacted">
+		<!-- <jms:listener destination="mvcQueue" ref="queueMessageListener" concurrency="5-40" /> -->
+	</jms:listener-container>
+	
+	<!-- 定义Topic监听器 -->
+	
+	<jms:listener-container 
+		destination-type="topic"  
+		container-type="default" 
+		connection-factory="jmsConnectionFactory"
+		transaction-manager="springTransactionManager"
+		acknowledge="transacted" >
+		<!-- <jms:listener destination="mvcTopic" ref="topicMessageListener" /> -->
+	</jms:listener-container>
+	
+	
+	
+	 <!-- 定义消息队列（Queue） -->
+    <bean id="mvcQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 设置消息队列的名字 -->
+        <constructor-arg name="name" value="mvcQueue"/>
+    </bean>
+     <!-- 定义消息主题（topic） -->
+    <bean id="mvcTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <!-- 设置消息队列的名字 -->
+        <constructor-arg name="name" value="mvcTopic"/>
+    </bean>
+    
+    <!-- 配置消息队列监听者（Queue） -->
+    <bean id="queueMessageListener" class="com.rainsoft.mvc.test.QueueMessageListener" />
+    
+    <!-- 配置消息主题监听者（Queue） -->
+    <bean id="topicMessageListener" class="com.rainsoft.mvc.test.TopicMessageListener" />
+</beans>

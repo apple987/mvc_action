@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainsoft.mvc.mapper.ClientUser">
+
+    <resultMap id="ClientUserMap" type="com.rainsoft.mvc.model.ClientUser">
+        <result property="pkid" column="PKID"/>
+        <result property="uname" column="UNAME"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="status" column="STATUS"/>
+        <result property="memo" column="MEMO"/>
+        <result property="createDate" column="CREATE_DATE"/>
+        <result property="loginDate" column="LOGIN_DATE"/>
+        <result property="email" column="EMAIL"/>
+        <result property="activedate" column="ACTIVEDATE"/>
+        <result property="remark" column="REMARK"/>
+        <result property="remark1" column="REMARK1"/>
+        <result property="remark2" column="REMARK2"/>
+        <result property="remark3" column="REMARK3"/>
+    </resultMap>
+
+    <sql id="allColumns">
+        PKID,UNAME,PASSWORD,STATUS,MEMO,CREATE_DATE,
+        LOGIN_DATE,EMAIL,ACTIVEDATE,REMARK,REMARK1,REMARK2,
+        REMARK3
+    </sql>
+
+    <sql id="dynamicWhere">
+   	   <trim  suffixOverrides="," prefix="WHERE" prefixOverrides="AND">
+          <if test="pkid!=null and pkid!=''">
+              AND PKID = #{pkid}
+          </if>
+          <if test="uname!=null and uname!=''">
+             AND UNAME LIKE concat('%',#{uname},'%')
+          </if>
+          <if test="password!=null and password!=''">
+             AND PASSWORD LIKE concat('%',#{password},'%')
+          </if>
+          <if test="status!=null and status!=''">
+             AND STATUS LIKE concat('%',#{status},'%')
+          </if>
+          <if test="memo!=null and memo!=''">
+             AND MEMO LIKE concat('%',#{memo},'%')
+          </if>
+          <if test="createDate!=null">
+             AND CREATE_DATE = #{createDate}
+          </if>
+          <if test="loginDate!=null">
+             AND LOGIN_DATE = #{loginDate}
+          </if>
+          <if test="email!=null and email!=''">
+             AND EMAIL LIKE concat('%',#{email},'%')
+          </if>
+          <if test="activedate!=null">
+             AND ACTIVEDATE = #{activedate}
+          </if>
+          <if test="remark!=null and remark!=''">
+             AND REMARK LIKE concat('%',#{remark},'%')
+          </if>
+          <if test="remark1!=null and remark1!=''">
+             AND REMARK1 LIKE concat('%',#{remark1},'%')
+          </if>
+          <if test="remark2!=null and remark2!=''">
+             AND REMARK2 LIKE concat('%',#{remark2},'%')
+          </if>
+          <if test="remark3!=null and remark3!=''">
+             AND REMARK3 LIKE concat('%',#{remark3},'%')
+          </if>
+       </trim>
+    </sql>
+
+    <!-- select -->
+    <select id="select" parameterType="com.rainsoft.mvc.model.ClientUser"  resultMap="ClientUserMap">
+      SELECT <include refid="allColumns" />
+      FROM CLIENT_USER  <include refid="dynamicWhere" />  
+    </select>
+
+    <!-- view -->
+    <select id="view" parameterType="java.lang.String"  resultMap="ClientUserMap">
+      SELECT <include refid="allColumns" />
+      FROM CLIENT_USER WHERE pkid = #{pkid,jdbcType=VARCHAR}
+    </select>
+
+    <!-- queryBean -->
+    <select id="queryBean" parameterType="com.rainsoft.mvc.model.ClientUser"  resultMap="ClientUserMap">
+      SELECT <include refid="allColumns" />
+      FROM CLIENT_USER  <include refid="dynamicWhere" /> 
+    </select>
+
+    <!-- batchInsert -->
+    <select id="batchInsert" parameterType="java.util.List">
+      INSERT INTO CLIENT_USER (<include refid="allColumns" />) 
+          VALUES(
+          <foreach collection="list" item="item" index="index" separator=","> 
+            (
+                #{item.pkid,jdbcType=VARCHAR},#{item.uname,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},#{item.status,jdbcType=VARCHAR},#{item.memo,jdbcType=VARCHAR},#{item.createDate,jdbcType=TIMESTAMP},
+        #{item.loginDate,jdbcType=TIMESTAMP},#{item.email,jdbcType=VARCHAR},#{item.activedate,jdbcType=DATE},#{item.remark,jdbcType=VARCHAR},#{item.remark1,jdbcType=VARCHAR},#{item.remark2,jdbcType=VARCHAR},
+        #{item.remark3,jdbcType=VARCHAR}      
+            )      
+          </foreach>
+    </select>
+
+    <!-- insert -->
+    <insert id="insert" parameterType="com.rainsoft.mvc.model.ClientUser">
+      INSERT INTO CLIENT_USER (<include refid="allColumns" />) 
+      VALUES(
+        #{pkid,jdbcType=VARCHAR},#{uname,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},
+        #{loginDate,jdbcType=TIMESTAMP},#{email,jdbcType=VARCHAR},#{activedate,jdbcType=DATE},#{remark,jdbcType=VARCHAR},#{remark1,jdbcType=VARCHAR},#{remark2,jdbcType=VARCHAR},
+        #{remark3,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- update -->
+    <update id="update" parameterType="com.rainsoft.mvc.model.ClientUser">
+      UPDATE  CLIENT_USER  
+         <set>    
+             <if test="uname!=null">UNAME = #{uname,jdbcType=VARCHAR},</if>
+             <if test="password!=null">PASSWORD = #{password,jdbcType=VARCHAR},</if>
+             STATUS = #{status,jdbcType=VARCHAR},
+             MEMO = #{memo,jdbcType=VARCHAR},
+             CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+             LOGIN_DATE = #{loginDate,jdbcType=TIMESTAMP},
+             EMAIL = #{email,jdbcType=VARCHAR},
+             ACTIVEDATE = #{activedate,jdbcType=DATE},
+             REMARK = #{remark,jdbcType=VARCHAR},
+             REMARK1 = #{remark1,jdbcType=VARCHAR},
+             REMARK2 = #{remark2,jdbcType=VARCHAR},
+             REMARK3 = #{remark3,jdbcType=VARCHAR}
+         </set>
+		WHERE pkid = #{pkid,jdbcType=VARCHAR}
+    </update>
+
+    <!-- batchUpdate -->
+    <update id="batchUpdate" parameterType="java.util.Map">
+      UPDATE  CLIENT_USER  
+         <set>    
+             <if test="uname!=null">UNAME = #{uname,jdbcType=VARCHAR},</if>
+             <if test="password!=null">PASSWORD = #{password,jdbcType=VARCHAR},</if>
+             STATUS = #{status,jdbcType=VARCHAR},
+             MEMO = #{memo,jdbcType=VARCHAR},
+             CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+             LOGIN_DATE = #{loginDate,jdbcType=TIMESTAMP},
+             EMAIL = #{email,jdbcType=VARCHAR},
+             ACTIVEDATE = #{activedate,jdbcType=DATE},
+             REMARK = #{remark,jdbcType=VARCHAR},
+             REMARK1 = #{remark1,jdbcType=VARCHAR},
+             REMARK2 = #{remark2,jdbcType=VARCHAR},
+             REMARK3 = #{remark3,jdbcType=VARCHAR}
+         </set>
+		WHERE pkid IN 
+      <foreach collection="pkList" index="index" item="item" open="(" separator="," close=")"> 
+        #{item}   
+      </foreach>
+    </update>
+
+    <!-- delete -->
+    <delete id="delete" parameterType="java.lang.String">
+      DELETE FROM CLIENT_USER WHERE pkid = #{pkid,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- batchDelete -->
+    <delete id="batchDelete" parameterType="java.util.List">
+      DELETE FROM CLIENT_USER  WHERE pkid  IN  
+       <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+           #{item.pkid,jdbcType=VARCHAR}
+       </foreach> 
+    </delete>
+
+</mapper>

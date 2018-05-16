@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainsoft.mvc.mapper.Platform">
+
+    <resultMap id="PlatformMap" type="com.rainsoft.mvc.model.Platform">
+        <result property="id" column="ID"/>
+        <result property="platformName" column="PLATFORM_NAME"/>
+        <result property="platformAbout" column="PLATFORM_ABOUT"/>
+        <result property="platformSite" column="PLATFORM_SITE"/>
+        <result property="onlineTime" column="ONLINE_TIME"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="legal" column="LEGAL"/>
+        <result property="registerCapita" column="REGISTER_CAPITA"/>
+        <result property="scale" column="SCALE"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="qqGroup" column="QQ_GROUP"/>
+        <result property="trusteeship" column="TRUSTEESHIP"/>
+        <result property="kefuPhone" column="KEFU_PHONE"/>
+        <result property="logo" column="LOGO"/>
+        <result property="province" column="PROVINCE"/>
+        <result property="city" column="CITY"/>
+        <result property="sta" column="STA"/>
+        <result property="bankBg" column="BANK_BG"/>
+        <result property="vcBg" column="VC_BG"/>
+        <result property="icpBg" column="ICP_BG"/>
+        <result property="gzBg" column="GZ_BG"/>
+        <result property="marketBg" column="MARKET_BG"/>
+        <result property="myBg" column="MY_BG"/>
+        <result property="bdAttorn" column="BD_ATTORN"/>
+        <result property="bdInterestDay" column="BD_INTEREST_DAY"/>
+        <result property="bdAuto" column="BD_AUTO"/>
+        <result property="bdExit" column="BD_EXIT"/>
+        <result property="withCahDay" column="WITH_CAH_DAY"/>
+        <result property="createDate" column="CREATE_DATE"/>
+        <result property="createBy" column="CREATE_BY"/>
+        <result property="updateDate" column="UPDATE_DATE"/>
+        <result property="updateBy" column="UPDATE_BY"/>
+    </resultMap>
+
+    <sql id="allColumns">
+        ID,PLATFORM_NAME,PLATFORM_ABOUT,PLATFORM_SITE,ONLINE_TIME,COMPANY_NAME,
+        LEGAL,REGISTER_CAPITA,SCALE,ADDRESS,QQ_GROUP,TRUSTEESHIP,
+        KEFU_PHONE,LOGO,PROVINCE,CITY,STA,BANK_BG,
+        VC_BG,ICP_BG,GZ_BG,MARKET_BG,MY_BG,BD_ATTORN,
+        BD_INTEREST_DAY,BD_AUTO,BD_EXIT,WITH_CAH_DAY,CREATE_DATE,CREATE_BY,
+        UPDATE_DATE,UPDATE_BY
+    </sql>
+
+    <sql id="dynamicWhere">
+   	   <trim  suffixOverrides="," prefix="WHERE" prefixOverrides="AND">
+          <if test="id!=null and id!=''">
+              AND ID = #{id}
+          </if>
+          <if test="platformName!=null and platformName!=''">
+             AND PLATFORM_NAME = #{platformName}
+          </if>
+          <if test="platformAbout!=null and platformAbout!=''">
+             AND PLATFORM_ABOUT = #{platformAbout}
+          </if>
+          <if test="platformSite!=null and platformSite!=''">
+             AND PLATFORM_SITE = #{platformSite}
+          </if>
+          <if test="onlineTime!=null and onlineTime!=''">
+             AND ONLINE_TIME = #{onlineTime}
+          </if>
+          <if test="companyName!=null and companyName!=''">
+             AND COMPANY_NAME = #{companyName}
+          </if>
+          <if test="legal!=null and legal!=''">
+             AND LEGAL = #{legal}
+          </if>
+          <if test="registerCapita!=null and registerCapita!=''">
+             AND REGISTER_CAPITA = #{registerCapita}
+          </if>
+          <if test="scale!=null and scale!=''">
+             AND SCALE = #{scale}
+          </if>
+          <if test="address!=null and address!=''">
+             AND ADDRESS = #{address}
+          </if>
+          <if test="qqGroup!=null and qqGroup!=''">
+             AND QQ_GROUP = #{qqGroup}
+          </if>
+          <if test="trusteeship!=null and trusteeship!=''">
+             AND TRUSTEESHIP = #{trusteeship}
+          </if>
+          <if test="kefuPhone!=null and kefuPhone!=''">
+             AND KEFU_PHONE = #{kefuPhone}
+          </if>
+          <if test="logo!=null and logo!=''">
+             AND LOGO = #{logo}
+          </if>
+          <if test="province!=null and province!=''">
+             AND PROVINCE = #{province}
+          </if>
+          <if test="city!=null and city!=''">
+             AND CITY = #{city}
+          </if>
+          <if test="sta!=null and sta!=''">
+             AND STA = #{sta}
+          </if>
+          <if test="bankBg!=null and bankBg!=''">
+             AND BANK_BG = #{bankBg}
+          </if>
+          <if test="vcBg!=null and vcBg!=''">
+             AND VC_BG = #{vcBg}
+          </if>
+          <if test="icpBg!=null and icpBg!=''">
+             AND ICP_BG = #{icpBg}
+          </if>
+          <if test="gzBg!=null and gzBg!=''">
+             AND GZ_BG = #{gzBg}
+          </if>
+          <if test="marketBg!=null and marketBg!=''">
+             AND MARKET_BG = #{marketBg}
+          </if>
+          <if test="myBg!=null and myBg!=''">
+             AND MY_BG = #{myBg}
+          </if>
+          <if test="bdAttorn!=null and bdAttorn!=''">
+             AND BD_ATTORN = #{bdAttorn}
+          </if>
+          <if test="bdInterestDay!=null and bdInterestDay!=''">
+             AND BD_INTEREST_DAY = #{bdInterestDay}
+          </if>
+          <if test="bdAuto!=null and bdAuto!=''">
+             AND BD_AUTO = #{bdAuto}
+          </if>
+          <if test="bdExit!=null and bdExit!=''">
+             AND BD_EXIT = #{bdExit}
+          </if>
+          <if test="withCahDay!=null and withCahDay!=''">
+             AND WITH_CAH_DAY = #{withCahDay}
+          </if>
+          <if test="createDate!=null and createDate!=''">
+             AND CREATE_DATE = #{createDate}
+          </if>
+          <if test="createBy!=null and createBy!=''">
+             AND CREATE_BY = #{createBy}
+          </if>
+          <if test="updateDate!=null and updateDate!=''">
+             AND UPDATE_DATE = #{updateDate}
+          </if>
+          <if test="updateBy!=null and updateBy!=''">
+             AND UPDATE_BY = #{updateBy}
+          </if>
+       </trim>
+    </sql>
+
+    <!-- select -->
+    <select id="select" parameterType="com.rainsoft.mvc.model.Platform"  resultMap="PlatformMap">
+      SELECT <include refid="allColumns" />
+      FROM PLATFORM  <include refid="dynamicWhere" />  
+    </select>
+
+    <!-- view -->
+    <select id="view" parameterType="java.lang.Integer"  resultMap="PlatformMap">
+      SELECT <include refid="allColumns" />
+      FROM PLATFORM WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- queryBean -->
+    <select id="queryBean" parameterType="com.rainsoft.mvc.model.Platform"  resultMap="PlatformMap">
+      SELECT <include refid="allColumns" />
+      FROM PLATFORM  <include refid="dynamicWhere" /> 
+    </select>
+
+    <!-- batchInsert -->
+    <select id="batchInsert" parameterType="java.util.List">
+      INSERT INTO PLATFORM (<include refid="allColumns" />) 
+          VALUES(
+          <foreach collection="list" item="item" index="index" separator=","> 
+            (
+                #{item.id,jdbcType=INTEGER},#{item.platformName,jdbcType=VARCHAR},#{item.platformAbout,jdbcType=VARCHAR},#{item.platformSite,jdbcType=VARCHAR},#{item.onlineTime,jdbcType=VARCHAR},#{item.companyName,jdbcType=VARCHAR},
+        #{item.legal,jdbcType=VARCHAR},#{item.registerCapita,jdbcType=VARCHAR},#{item.scale,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR},#{item.qqGroup,jdbcType=VARCHAR},#{item.trusteeship,jdbcType=VARCHAR},
+        #{item.kefuPhone,jdbcType=VARCHAR},#{item.logo,jdbcType=VARCHAR},#{item.province,jdbcType=VARCHAR},#{item.city,jdbcType=VARCHAR},#{item.sta,jdbcType=VARCHAR},#{item.bankBg,jdbcType=VARCHAR},
+        #{item.vcBg,jdbcType=VARCHAR},#{item.icpBg,jdbcType=VARCHAR},#{item.gzBg,jdbcType=VARCHAR},#{item.marketBg,jdbcType=VARCHAR},#{item.myBg,jdbcType=VARCHAR},#{item.bdAttorn,jdbcType=VARCHAR},
+        #{item.bdInterestDay,jdbcType=VARCHAR},#{item.bdAuto,jdbcType=VARCHAR},#{item.bdExit,jdbcType=VARCHAR},#{item.withCahDay,jdbcType=VARCHAR},#{item.createDate,jdbcType=TIMESTAMP},#{item.createBy,jdbcType=VARCHAR},
+        #{item.updateDate,jdbcType=TIMESTAMP},#{item.updateBy,jdbcType=VARCHAR}      
+            )      
+          </foreach>
+    </select>
+
+    <!-- insert -->
+    <insert id="insert" parameterType="com.rainsoft.mvc.model.Platform">
+      INSERT INTO PLATFORM (<include refid="allColumns" />) 
+      VALUES(
+        #{id,jdbcType=INTEGER},#{platformName,jdbcType=VARCHAR},#{platformAbout,jdbcType=VARCHAR},#{platformSite,jdbcType=VARCHAR},#{onlineTime,jdbcType=VARCHAR},#{companyName,jdbcType=VARCHAR},
+        #{legal,jdbcType=VARCHAR},#{registerCapita,jdbcType=VARCHAR},#{scale,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{qqGroup,jdbcType=VARCHAR},#{trusteeship,jdbcType=VARCHAR},
+        #{kefuPhone,jdbcType=VARCHAR},#{logo,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{sta,jdbcType=VARCHAR},#{bankBg,jdbcType=VARCHAR},
+        #{vcBg,jdbcType=VARCHAR},#{icpBg,jdbcType=VARCHAR},#{gzBg,jdbcType=VARCHAR},#{marketBg,jdbcType=VARCHAR},#{myBg,jdbcType=VARCHAR},#{bdAttorn,jdbcType=VARCHAR},
+        #{bdInterestDay,jdbcType=VARCHAR},#{bdAuto,jdbcType=VARCHAR},#{bdExit,jdbcType=VARCHAR},#{withCahDay,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{createBy,jdbcType=VARCHAR},
+        #{updateDate,jdbcType=TIMESTAMP},#{updateBy,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- update -->
+    <update id="update" parameterType="com.rainsoft.mvc.model.Platform">
+      UPDATE  PLATFORM  
+         <set>    
+             <if test="platformName!=null">PLATFORM_NAME = #{platformName,jdbcType=VARCHAR},</if>
+             <if test="platformAbout!=null">PLATFORM_ABOUT = #{platformAbout,jdbcType=VARCHAR},</if>
+             PLATFORM_SITE = #{platformSite,jdbcType=VARCHAR},
+             <if test="onlineTime!=null">ONLINE_TIME = #{onlineTime,jdbcType=VARCHAR},</if>
+             <if test="companyName!=null">COMPANY_NAME = #{companyName,jdbcType=VARCHAR},</if>
+             <if test="legal!=null">LEGAL = #{legal,jdbcType=VARCHAR},</if>
+             <if test="registerCapita!=null">REGISTER_CAPITA = #{registerCapita,jdbcType=VARCHAR},</if>
+             SCALE = #{scale,jdbcType=VARCHAR},
+             <if test="address!=null">ADDRESS = #{address,jdbcType=VARCHAR},</if>
+             QQ_GROUP = #{qqGroup,jdbcType=VARCHAR},
+             TRUSTEESHIP = #{trusteeship,jdbcType=VARCHAR},
+             <if test="kefuPhone!=null">KEFU_PHONE = #{kefuPhone,jdbcType=VARCHAR},</if>
+             <if test="logo!=null">LOGO = #{logo,jdbcType=VARCHAR},</if>
+             PROVINCE = #{province,jdbcType=VARCHAR},
+             CITY = #{city,jdbcType=VARCHAR},
+             STA = #{sta,jdbcType=VARCHAR},
+             BANK_BG = #{bankBg,jdbcType=VARCHAR},
+             VC_BG = #{vcBg,jdbcType=VARCHAR},
+             ICP_BG = #{icpBg,jdbcType=VARCHAR},
+             GZ_BG = #{gzBg,jdbcType=VARCHAR},
+             MARKET_BG = #{marketBg,jdbcType=VARCHAR},
+             MY_BG = #{myBg,jdbcType=VARCHAR},
+             BD_ATTORN = #{bdAttorn,jdbcType=VARCHAR},
+             BD_INTEREST_DAY = #{bdInterestDay,jdbcType=VARCHAR},
+             BD_AUTO = #{bdAuto,jdbcType=VARCHAR},
+             BD_EXIT = #{bdExit,jdbcType=VARCHAR},
+             WITH_CAH_DAY = #{withCahDay,jdbcType=VARCHAR},
+             CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+             CREATE_BY = #{createBy,jdbcType=VARCHAR},
+             UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+             UPDATE_BY = #{updateBy,jdbcType=VARCHAR}
+         </set>
+		WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- batchUpdate -->
+    <update id="batchUpdate" parameterType="java.util.Map">
+      UPDATE  PLATFORM  
+         <set>    
+             <if test="platformName!=null">PLATFORM_NAME = #{platformName,jdbcType=VARCHAR},</if>
+             <if test="platformAbout!=null">PLATFORM_ABOUT = #{platformAbout,jdbcType=VARCHAR},</if>
+             PLATFORM_SITE = #{platformSite,jdbcType=VARCHAR},
+             <if test="onlineTime!=null">ONLINE_TIME = #{onlineTime,jdbcType=VARCHAR},</if>
+             <if test="companyName!=null">COMPANY_NAME = #{companyName,jdbcType=VARCHAR},</if>
+             <if test="legal!=null">LEGAL = #{legal,jdbcType=VARCHAR},</if>
+             <if test="registerCapita!=null">REGISTER_CAPITA = #{registerCapita,jdbcType=VARCHAR},</if>
+             SCALE = #{scale,jdbcType=VARCHAR},
+             <if test="address!=null">ADDRESS = #{address,jdbcType=VARCHAR},</if>
+             QQ_GROUP = #{qqGroup,jdbcType=VARCHAR},
+             TRUSTEESHIP = #{trusteeship,jdbcType=VARCHAR},
+             <if test="kefuPhone!=null">KEFU_PHONE = #{kefuPhone,jdbcType=VARCHAR},</if>
+             <if test="logo!=null">LOGO = #{logo,jdbcType=VARCHAR},</if>
+             PROVINCE = #{province,jdbcType=VARCHAR},
+             CITY = #{city,jdbcType=VARCHAR},
+             STA = #{sta,jdbcType=VARCHAR},
+             BANK_BG = #{bankBg,jdbcType=VARCHAR},
+             VC_BG = #{vcBg,jdbcType=VARCHAR},
+             ICP_BG = #{icpBg,jdbcType=VARCHAR},
+             GZ_BG = #{gzBg,jdbcType=VARCHAR},
+             MARKET_BG = #{marketBg,jdbcType=VARCHAR},
+             MY_BG = #{myBg,jdbcType=VARCHAR},
+             BD_ATTORN = #{bdAttorn,jdbcType=VARCHAR},
+             BD_INTEREST_DAY = #{bdInterestDay,jdbcType=VARCHAR},
+             BD_AUTO = #{bdAuto,jdbcType=VARCHAR},
+             BD_EXIT = #{bdExit,jdbcType=VARCHAR},
+             WITH_CAH_DAY = #{withCahDay,jdbcType=VARCHAR},
+             CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+             CREATE_BY = #{createBy,jdbcType=VARCHAR},
+             UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+             UPDATE_BY = #{updateBy,jdbcType=VARCHAR}
+         </set>
+		WHERE id IN 
+      <foreach collection="pkList" index="index" item="item" open="(" separator="," close=")"> 
+        #{item}   
+      </foreach>
+    </update>
+
+    <!-- delete -->
+    <delete id="delete" parameterType="java.lang.Integer">
+      DELETE FROM PLATFORM WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!-- batchDelete -->
+    <delete id="batchDelete" parameterType="java.util.List">
+      DELETE FROM PLATFORM  WHERE id  IN  
+       <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+           #{item.id,jdbcType=INTEGER}
+       </foreach> 
+    </delete>
+
+</mapper>
