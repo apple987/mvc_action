@@ -4,19 +4,19 @@
 - 项目基于maven的多profile环境配置，打包时需要选择(test/pro/dev)打包运行的环境。<br>
 <br>
 **项目特点**<br>  
-> * 友好的代码结构及注释，便于阅读及二次开发 。<br>
-> * 前端页面采用jsp+freemaker，多视图解析处理，优先jsp,采用bootstrap-table强大灵活的表格插件渲染数据。 <br> 
-> * 后端配置swagger在线文档，方便编写API接口文档。<br> 
-> * 引入druib,fastjson,cors,xss,redis-cluster,redis配置。<br>
-> * 引入API模板，根据token作为登录令牌，极大的方便了APP接口开发。<br>
-> * 配置全局异常处理,mybatis,pagehelper分页。<br>
-> * 配置通用日志打印，采用异步线程池日志写入数据库，方便开发寻找异常。<br>
-> * 配置redisson集群模式,使用分布式锁，保证并发的数据一致性。
-> * 配置jta分布式事务，使用atomikos分布式事务处理方案。<br>
-> * 引入druib,javaMelody监控系统各项指标，分析系统瓶颈。<br>
-> * 配置quartz定时器，开启集群版，cron表达式配置数据库，支持手动重启，停止任务。<br>
-> * 配置fileupload(默认配置最大100MB)，下载文件，生成二维码，二维码打印，mail发邮件等功能。<br>
-> * 配置poi和csv简单导出excel功能点,poi目前是多sheet智能导出。<br>
+- 友好的代码结构及注释，便于阅读及二次开发 。<br>
+- 前端页面采用jsp+freemaker，多视图解析处理，优先jsp,采用bootstrap-table强大灵活的表格插件渲染数据。 <br> 
+- 后端配置swagger在线文档，方便编写API接口文档。<br> 
+- 引入druib,fastjson,cors,xss,redis-cluster,redis配置。<br>
+- 引入API模板，根据token作为登录令牌，极大的方便了APP接口开发。<br>
+- 配置全局异常处理,mybatis,pagehelper分页。<br>
+- 配置通用日志打印，采用异步线程池日志写入数据库，方便开发寻找异常。<br>
+- 配置redisson集群模式,使用分布式锁，保证并发的数据一致性。
+- 配置jta分布式事务，使用atomikos分布式事务处理方案。<br>
+- 引入druib,javaMelody监控系统各项指标，分析系统瓶颈。<br>
+- 配置quartz定时器，开启集群版，cron表达式配置数据库，支持手动重启，停止任务。<br>
+- 配置fileupload(默认配置最大100MB)，下载文件，生成二维码，二维码打印，mail发邮件等功能。<br>
+- 配置poi和csv简单导出excel功能点,poi目前是多sheet智能导出。<br>
  <br> 
 **项目结构**
 <br>
