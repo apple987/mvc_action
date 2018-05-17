@@ -44,13 +44,13 @@ springMvc<br>
 │  └─util 模块工具<br>
 │  
 ├──resources <br>
-│  ├─spring spring配置xml<br>
-│  ├─conf   系统配置properties<br>
-│  ├─jta.properties   jta配置<br>
-│  ├─freemarker.properties   freemarker配置<br>
-│  ├─log4j.properties   log4j日志配置<br>
-│  ├─mybatis-config.xml   mybatis配置<br>
-│  └─spring-mvc.xml springMvc配置<br>
+│     ├─spring spring配置xml<br>
+│     ├─conf   系统配置properties<br>
+│     ├─jta.properties   jta配置<br>
+│     ├─freemarker.properties   freemarker配置<br>
+│     ├─log4j.properties   log4j日志配置<br>
+│     ├─mybatis-config.xml   mybatis配置<br>
+│     └─spring-mvc.xml springMvc配置<br>
 <br>
  **环境配置:**<br>
 - 1.项目依赖,redis-cluster集群,activeMq,solr,redis工具。<br>
