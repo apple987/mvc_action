@@ -20,7 +20,7 @@
  <br> 
 **项目结构**
 <br>
-springMvc<br>
+mvc-action<br>
 ├─doc  (isec,qdone两个数据库)项目SQL语句<br>
 │<br>
 ├─core 框架配置<br>
@@ -72,6 +72,7 @@ springMvc<br>
 <br> 	
 **用户反馈：**<br>
 - Git仓库： https://github.com/apple987/mvc_action<br>
+- 码云仓库：https://gitee.com/bootstrap2table/mvc-master<br>
 - 邮箱地址: m15171479289@163.com <br>
 		
 		
