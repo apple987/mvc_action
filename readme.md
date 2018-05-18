@@ -20,7 +20,7 @@
  <br> 
 **项目结构**
 <br>
-mvc-action<br>
+mvc_action<br>
 ├─doc  (isec,qdone两个数据库)项目SQL语句<br>
 │<br>
 ├─core 框架配置<br>
