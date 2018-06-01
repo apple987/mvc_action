@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -14,13 +15,16 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +34,7 @@ import com.rainsoft.mvc.model.Staff;
 import com.rainsoft.mvc.service.StaffService;
 import com.rainsoft.util.ConfigUtils;
 import com.rainsoft.util.Function;
+import com.rainsoft.util.SerialNo;
 import com.rainsoft.util.ZxingQRCode;
 
 import springfox.documentation.annotations.ApiIgnore;
@@ -54,12 +59,13 @@ public class StaffController extends BaseController{
 	@Resource(name = "mailInfo")
 	private Properties  mailInfo;
 	
+	
 	/**
-	* 初始化页面
-	*/
-	@RequestMapping("/")
+	 *  初始化页面
+	 */
+	@RequestMapping("/init")
 	public String init(HttpServletRequest request,HttpServletResponse response){
-		return "staff";
+		return "staff/selectStaff";
 	}
         
     /**
@@ -72,44 +78,108 @@ public class StaffController extends BaseController{
 	public Object selectPage(@RequestParam Map<String, Object> param) {
 	     return responseSelectPage(staffService.selectPage(param));
 	}
- 
+    
+	/**
+	 * 跳转添加
+	*/
+    @RequestMapping(value="/preInsert",method=RequestMethod.GET)
+	public String preInsert(HttpServletRequest req){
+		return "staff/insertStaff";
+	} 
+    
     /**
-	 * StaffController添加数据
-	 * @param param
-	 */
-    @RequestMapping("/insert")
+     * 添加数据
+     */
+	@RequestMapping(value="/insert",method=RequestMethod.PUT)
 	@ResponseBody
-	@Function("staff添加")
-	public Object insert(@RequestParam Map<String, Object> param) {
-	     Staff bean=JSON.parseObject(JSON.toJSONString(param), Staff.class);
-	     return staffService.insert(bean);
+	@Function("添加")
+	public Boolean insert(@RequestBody Staff entity) {
+		entity.setPkid(SerialNo.getUNID());
+		return staffService.insert(entity)>0?Boolean.TRUE:Boolean.FALSE;
 	}
-
+	
     /**
-	 * StaffController更新数据
-	 * @param param
-	 */
-    @RequestMapping("/update")
-	@ResponseBody
-	@Function("staff更新")
-	public Object update(@RequestParam Map<String, Object> param) {
-	     Staff bean=JSON.parseObject(JSON.toJSONString(param), Staff.class);
-	     return staffService.update(bean);
-	}
-
+	 * 跳转更新
+	*/
+    @RequestMapping(value="/preUpdate",method=RequestMethod.GET)
+	public String preUpdate(HttpServletRequest request){
+	    request.setAttribute("staff", staffService.view(request.getParameter("pkid")));
+		return "staff/updateStaff";
+	} 
+    
     /**
-	 * StaffController删除数据
-	 * @param param
-	 */
-    @RequestMapping("/delete")
+     * 更新数据
+     */
+	@RequestMapping(value="/update",method=RequestMethod.POST)
 	@ResponseBody
-	@Function("staff删除")
-	public Object delete(@RequestParam Map<String, Object> param) {
-    	 Staff bean=JSON.parseObject(JSON.toJSONString(param), Staff.class);
-	     return staffService.delete(bean.getPkid());//主键;
+	@Function("更新")
+	public Boolean update(Staff entity) {
+		return staffService.update(entity)>0?Boolean.TRUE:Boolean.FALSE;
 	}
+	
+    /**
+     * 删除数据
+     */
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	@Function("删除")
+	public Boolean delete(@RequestBody List<Staff> ids) {
+		if(!CollectionUtils.isEmpty(ids)){
+			String[] arr=new String[ids.size()];
+			for (int i = 0; i < ids.size(); i++) {
+				arr[i]=ids.get(i).getPkid();
+			}
+			return staffService.delete(arr)>0?Boolean.TRUE:Boolean.FALSE;
+		}
+		return Boolean.TRUE;
+		
+		
+	}
+   /*************************************************staff页面方法****************************************************************/
+    /**
+	* 初始化页面
+	*/
+	@RequestMapping("/")
+	public String welcome(HttpServletRequest request,HttpServletResponse response){
+		return "staff";
+	}
+    /**
+   	 * StaffController添加数据
+   	 * @param param
+   	 */
+       @RequestMapping("/insertStaff")
+   	@ResponseBody
+   	@Function("staff添加")
+   	public Object insert(@RequestParam Map<String, Object> param) {
+   	     Staff bean=JSON.parseObject(JSON.toJSONString(param), Staff.class);
+   	     return staffService.insert(bean);
+   	}
+    /**
+   	 * StaffController更新数据
+   	 * @param param
+   	 */
+       @RequestMapping("/updateStaff")
+   	@ResponseBody
+   	@Function("staff更新")
+   	public Object update(@RequestParam Map<String, Object> param) {
+   	     Staff bean=JSON.parseObject(JSON.toJSONString(param), Staff.class);
+   	     return staffService.update(bean);
+   	}
 
-
+       /**
+   	 * StaffController删除数据
+   	 * @param param
+   	 */
+       @RequestMapping("/deleteStaff")
+   	@ResponseBody
+   	@Function("staff删除")
+   	public Object delete(@RequestParam Map<String, Object> param) {
+       	 Staff bean=JSON.parseObject(JSON.toJSONString(param), Staff.class);
+   	     return staffService.delete(bean.getPkid());//主键;
+   	}   
+       
+       
+       
 	@RequestMapping("/toQrcode")
 	public String toQrcode(HttpServletRequest request,
 			HttpServletResponse response) {

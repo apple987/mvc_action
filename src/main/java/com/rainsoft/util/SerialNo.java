@@ -44,7 +44,7 @@ public class SerialNo {
 	}
 
 	public static synchronized Integer getRomdomID() {
-		return Integer.parseInt(RandomStringUtils.randomNumeric(10));
+		return Integer.parseInt(RandomStringUtils.randomNumeric(9));
 	}
 	
 	public static synchronized Long getRomdomLongID() {

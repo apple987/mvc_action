@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,15 +13,16 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.rainsoft.core.dao.BaseDao;
+import com.rainsoft.core.dao.SalveDao;
 import com.rainsoft.core.page.PageList;
 import com.rainsoft.mvc.model.Student;
 import com.rainsoft.mvc.service.StudentService;
 
 /**
- * TODO 本代码由代码生成工具生成
- *
  * @author 付为地
  * @date 2017-07-09 05:33:39
+ *  使用atomikos分布式事务,同时操作isec和qdone数据库student表数据
+ * 
  */
 
 @Service("studentService")
@@ -31,7 +33,8 @@ public class StudentServiceImpl implements StudentService{
     @Resource(name = "baseDao")
 	private BaseDao baseDao;
        
-	
+    @Autowired
+   	private SalveDao salveDao;
 	
 	/**
 	 * 分页查询
@@ -49,6 +52,7 @@ public class StudentServiceImpl implements StudentService{
 	@CachePut(value="view",key="#object.getId()")
 	public Student insert(Student object) {
 		log.info("StudentServiceImpl.insert参数： entity=>" + JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss"));
+		salveDao.insert("com.rainsoft.mvc.mybatis.Student.insert", object);
 		object.setOperateResult(baseDao.insert("com.rainsoft.mvc.mapper.Student.insert", object));
 		return object;
 	}
@@ -60,6 +64,7 @@ public class StudentServiceImpl implements StudentService{
 	@CacheEvict(value="view",key="#object.getId()")
 	public Student update(Student object){
 		log.info("执行StudentServiceImpl.update参数： entity==>" + JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss"));
+		salveDao.update("com.rainsoft.mvc.mybatis.Student.update", object);
 		object.setOperateResult(baseDao.update("com.rainsoft.mvc.mapper.Student.update", object));
         return object;
 	}
@@ -104,6 +109,7 @@ public class StudentServiceImpl implements StudentService{
 	@CacheEvict(value="view",key="#pk")
 	public int delete(String pk) {
 		log.info("执行StudentServiceImpl.delete参数： pk=>" + pk);
+		salveDao.delete("com.rainsoft.mvc.mybatis.Student.delete", Integer.parseInt(pk));
 		return baseDao.delete("com.rainsoft.mvc.mapper.Student.delete", Integer.parseInt(pk));
 	}
     /**
@@ -113,7 +119,8 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public int batchUpdate(List<Student> object) {
 		log.info("执行StudentServiceImpl.batchUpdate参数： List=>" + JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss"));
-        return baseDao.batchUpdate("com.rainsoft.mvc.mapper.Student.batchUpdate", object);
+		salveDao.batchUpdate("com.rainsoft.mvc.mybatis.Student.batchUpdate", object);
+		return baseDao.batchUpdate("com.rainsoft.mvc.mapper.Student.batchUpdate", object);
 	}
 	
     /**
@@ -123,7 +130,8 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public int batchInsert(List<Student> object) {
 	     log.info("执行StudentServiceImpl.batchInsert参数： List=>" + JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss"));
-         return baseDao.batchInsert("com.rainsoft.mvc.mapper.Student.batchInsert", object);
+	     salveDao.batchInsert("com.rainsoft.mvc.mybatis.Student.batchInsert", object);
+	     return baseDao.batchInsert("com.rainsoft.mvc.mapper.Student.batchInsert", object);
 	}
 	
     /**
@@ -132,7 +140,8 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public int batchDelete(List<Student> pkList) {
 		log.info("执行StudentServiceImpl.batchDelete参数： pkList=>" + JSON.toJSONStringWithDateFormat(pkList, "yyyy-MM-dd HH:mm:ss"));
-        return baseDao.batchDelete("com.rainsoft.mvc.mapper.Student.batchDelete", pkList);
+		salveDao.batchDelete("com.rainsoft.mvc.mybatis.Student.batchDelete", pkList);
+		return baseDao.batchDelete("com.rainsoft.mvc.mapper.Student.batchDelete", pkList);
 	}   
 	
 }

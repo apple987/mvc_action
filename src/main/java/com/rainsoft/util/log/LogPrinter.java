@@ -3,7 +3,6 @@ package com.rainsoft.util.log;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -30,7 +29,6 @@ import com.rainsoft.mvc.model.SysLog;
 import com.rainsoft.util.CoreUtil;
 import com.rainsoft.util.Function;
 import com.rainsoft.util.MacUtils;
-import com.rainsoft.util.MutiSort;
 import com.rainsoft.util.SessionUtil;
 
 /**
@@ -43,7 +41,8 @@ import com.rainsoft.util.SessionUtil;
 public class LogPrinter {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private String userName = null; // 用户名
-	private Object inputParamMap = new Object(); // 传入参数
+	/*private Object inputParamMap = new Object(); // 传入参数*/
+	private String inputArgString="";//传入参数格式化字符串
 	private String className = null;// 执行类名
 	private String methodName = null;// 执行方法名称
 	private String functionName = "";// function注解描述的方法名称
@@ -82,7 +81,7 @@ public class LogPrinter {
 				Object[] args = pjp.getArgs();
 				Method method = ((org.aspectj.lang.reflect.MethodSignature) pjp.getSignature()).getMethod();
 				Class<?>[] paremClassTypes = method.getParameterTypes();
-				//自身类.class.isAssignableFrom(自身类或子类.class)  返回true 
+				/*//自身类.class.isAssignableFrom(自身类或子类.class)  返回true 
 				for (int i = 0; i < args.length; i++) {
 					if (Map.class.isAssignableFrom(paremClassTypes[i])) {// 打印map
 						inputParamMap = args[i];
@@ -90,13 +89,15 @@ public class LogPrinter {
 					if (MutiSort.class.isAssignableFrom(paremClassTypes[i])) {//MutiSort本类或者子类
 						inputParamMap = args[i];
 					}
-				}
+				}*/
+				inputArgString=CoreUtil.buildInputParamToString(args,paremClassTypes);
 				Function f = method.getAnnotation(Function.class);
 				functionName = f == null ? "" : f.value();
 				/*线程池绑定log打印时间*/
 				long beginTime = System.currentTimeMillis();//1、开始时间  
 			    startTimeThreadLocal.set(beginTime);		//线程绑定变量（该数据只有当前请求的线程可见）
-				logger.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,S").format(beginTime)+" 用户:" + userName + " [" + functionName + "] 开始:" + className + "." + methodName + "() 参数:"+ JSON.toJSONStringWithDateFormat(inputParamMap, "yyyy-MM-dd HH:mm:ss"));
+			    logger.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,S").format(beginTime)+" 用户:" + userName + " [" + functionName + "] 开始:" + className + "." + methodName + "() 参数:"+ inputArgString);
+			    /*logger.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,S").format(beginTime)+" 用户:" + userName + " [" + functionName + "] 开始:" + className + "." + methodName + "() 参数:"+ JSON.toJSONStringWithDateFormat(inputParamMap, "yyyy-MM-dd HH:mm:ss"));*/
 				// 执行完方法的返回值：调用proceed()方法，就会触发切入点方法执行
 				Object result=null;
 				try {
@@ -112,15 +113,15 @@ public class LogPrinter {
 				    sysLog.setRemoteIp(SessionUtil.getRequest().getRemoteHost());
 				    sysLog.setRequestUri(SessionUtil.getRequest().getRequestURI());//访问路径
 				    sysLog.setRequestMethod(request.getMethod());//请求方式
-				    String actionAccessContent = "";
+				    /*String actionAccessContent = "";
 					if(inputParamMap!=null &&!inputParamMap.equals("")){
 						if(inputParamMap instanceof String){
 							actionAccessContent=CoreUtil.getNotNullStr(inputParamMap);
 						}else{
 							actionAccessContent=JSON.toJSONStringWithDateFormat(inputParamMap, "yyyy-MM-dd HH:mm:ss");
 						}
-					}
-				    sysLog.setRequestParams(actionAccessContent);
+					}*/
+				    sysLog.setRequestParams(inputArgString);
 				    sysLog.setRequestMac(MacUtils.getMac());
 				    sysLog.setException(null);
 				    sysLog.setClassName(className);

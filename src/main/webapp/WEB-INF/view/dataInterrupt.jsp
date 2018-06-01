@@ -67,21 +67,18 @@
 	<div id="tb"  style="padding: 5px; height: auto">
 	  <div style="margin-bottom: 5px">
 	     <form id="queryForm" name="queryForm" method="post" action="">
-	     <input type="text" name="sname"/>
-           <table id="toolbarLeft" style="width:1050px;">
-                     
+	     <!-- <input type="text" name="sname"/> -->
+           <table id="toolbarLeft" >
                     <tr>
-				        <td>数据类型:</td>
-				        <td>
-				            <select class="form-control" name="breakSource">
+				        <td>数据类型:
+				            <select name="breakSource">
 					        	<option value="" selected>全部</option>
 								<option value="0">接受数据</option>
 								<option value="1">上传数据</option>
 					        </select>
 			            </td>
-			            <td>处理状态:</td>
-				        <td>
-				            <select class="form-control"  name="status">
+			            <td>处理状态:
+				            <select  name="status">
 					        	<option value="" selected>全部</option>
 								<option value="1">已处理</option>
 								<option value="2" >未处理</option>
@@ -110,36 +107,9 @@
 			              &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="导出" style="width:80px;height:30px;vertical-align: bottom; line-height:10px;" class="btn-primary" onclick="doExport()"/>
 			            </td> -->
                     </tr>
-                    <tr>
-						   <%-- <td><a href="${root}/staff/toQrcode" target="_blank">
-							        <button type="button" class="btn btn-default btn-sm" >
-									  <span class="glyphicon" aria-hidden="true"></span>
-										QrCode二维码
-									</button>
-								</a>
-						   </td> --%>
-                           <td>
-						       <a href="${root}/staff/toZxingQrcode" target="_blank">
-							        <button type="button" class="btn btn-default btn-sm" >
-									  <span class="glyphicon" aria-hidden="true"></span>
-										Zxing二维码
-									</button>
-								</a>
-						  </td>
-	                        <td>		
-								        <button type="button" class="btn btn-default btn-sm"  onClick="sendEmail()">
-										    <span class="glyphicon" aria-hidden="true"></span>
-											Spring发邮件
-										</button>
-							</td>
-							<td><a href="<%=rootPath %>/ckdemo/index.html" target="_blank">
-								        <button type="button" class="btn btn-default btn-sm" >
-										    <span class="glyphicon" aria-hidden="true"></span>
-											CKEditor和CKFinder上传文件
-										</button>
-								</a>		
-				            </td>
-				            <td><a href="${root}/druid" target="_blank">
+				 <tr>
+				  <td>
+				            <a href="${root}/druid" target="_blank">
 								        <button type="button" class="btn btn-default btn-sm" >
 										    <span class="glyphicon" aria-hidden="true"></span>
 											druid监控
@@ -173,8 +143,46 @@
 											简单导出poi
 										</button>
 								</a>		
-				            </td>
-			     </tr>
+				  </td>
+				 </tr>				
+				  <tr>
+                           <td>
+						       <a href="${root}/staff/toZxingQrcode" target="_blank">
+							        <button type="button" class="btn btn-default btn-sm" >
+									  <span class="glyphicon" aria-hidden="true"></span>
+										Zxing二维码
+									</button>
+								</a>
+								<button type="button" class="btn btn-default btn-sm"  onClick="sendEmail()">
+										    <span class="glyphicon" aria-hidden="true"></span>
+											Spring发邮件
+										</button>
+							   <a href="<%=rootPath %>/ckdemo/index.html" target="_blank">
+								        <button type="button" class="btn btn-default btn-sm" >
+										    <span class="glyphicon" aria-hidden="true"></span>
+											CKEditor和CKFinder上传文件
+										</button>
+								</a>
+								<a href="${root}/scheduleJob/init" target="_blank">
+								        <button type="button" class="btn btn-default btn-sm" >
+										    <span class="glyphicon" aria-hidden="true"></span>
+											定时任务管理
+										</button>
+								</a>
+								<a href="${root}/student/init" target="_blank">
+								        <button type="button" class="btn btn-default btn-sm" >
+										    <span class="glyphicon" aria-hidden="true"></span>
+											分布式事务
+										</button>
+								</a>
+								<a href="${root}/swagger-ui.html" target="_blank">
+								        <button type="button" class="btn btn-default btn-sm" >
+										    <span class="glyphicon" aria-hidden="true"></span>
+											接口文档
+										</button>
+								</a>
+						</td>
+			     </tr>		          
            </table>         
 	     </form>
 	 </div>

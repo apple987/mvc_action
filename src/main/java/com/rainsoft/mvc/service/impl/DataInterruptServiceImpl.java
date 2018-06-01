@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.rainsoft.core.dao.BaseDao;
+import com.rainsoft.core.dao.SalveDao;
 import com.rainsoft.core.page.PageList;
 import com.rainsoft.mvc.model.DataInterrupt;
 import com.rainsoft.mvc.model.Staff;
@@ -30,8 +31,8 @@ public class DataInterruptServiceImpl implements DataInterruptService {
 	@Resource(name = "baseDao")
 	private BaseDao baseDao;
 	
-	@Resource(name = "commonDao")
-	private BaseDao commonDao;
+	@Resource(name = "salveDao")
+	private SalveDao salveDao;
 
 	@Resource(name = "jmsQueueTemplate")
 	private JmsTemplate jmsTemplate;
@@ -68,7 +69,7 @@ public class DataInterruptServiceImpl implements DataInterruptService {
 		st.setSex("1");
 		st.setSname("陈慧君");
 		st.setCreateDate(new Date());
-		commonDao.insert("com.rainsoft.mvc.mybatis.Staff.insert", st);
+		salveDao.insert("com.rainsoft.mvc.mybatis.Staff.insert", st);
 		String msg="测试添加数据时JTA事务,JMS整合";
 		System.out.println(Thread.currentThread().getName() + " 向队列" + jmsTemplate.getDefaultDestination().toString() + "发送消息---------------------->" + msg);
 		jmsTemplate.send(new MessageCreator() {

@@ -18,12 +18,12 @@ import com.rainsoft.core.page.PageList;
 import com.rainsoft.util.CoreUtil;
 /**
  *@author 付为地
- *操作isec数据源
- * 底层公共Dao
+ * 操作qdone数据源
+ *  底层公共Dao
  */
-public class BaseDao extends SqlSessionDaoSupport{
+public class SalveDao extends SqlSessionDaoSupport{
 
-	final Logger log=LoggerFactory.getLogger(BaseDao.class);
+	static  Logger log=LoggerFactory.getLogger(SalveDao.class);
 
 	/**
 	 * 注入SqlSessionTemplate

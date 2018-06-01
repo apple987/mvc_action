@@ -3,9 +3,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rainsoft.core.dao.BaseDao;
+import com.rainsoft.core.dao.SalveDao;
 import com.rainsoft.core.page.PageList;
 import com.rainsoft.mvc.model.Staff;
 import com.rainsoft.mvc.service.StaffService;
@@ -26,12 +28,15 @@ public class StaffServiceImpl implements StaffService{
 	@Resource(name = "baseDao")
 	private BaseDao baseDao;
        
+	@Autowired
+	private SalveDao salveDao;
 	/**
 	 * 删除
 	 */
 	@Override
 	public int delete(String pk) {
 		log.info("执行StaffServiceImpl.delete： pk=>" + pk);
+		salveDao.delete("com.rainsoft.mvc.mybatis.Staff.delete", pk);
 		return baseDao.delete("com.rainsoft.mvc.mapper.Staff.delete", pk);
 	}
 	
@@ -43,6 +48,7 @@ public class StaffServiceImpl implements StaffService{
         log.debug("执行StaffServiceImpl.delete： pk_array=>" + pk_array);
         for (String pk : pk_array) {
              log.debug(" pk=>" + pk);
+             salveDao.delete("com.rainsoft.mvc.mybatis.Staff.delete",pk_array);
              baseDao.delete("com.rainsoft.mvc.mapper.Staff.delete",pk_array);
         }
         return pk_array.length;
@@ -54,6 +60,7 @@ public class StaffServiceImpl implements StaffService{
 	@Override
 	public int insert(Staff object) {
 		 log.info("执行StaffServiceImpl.delete： object=>" + object);
+		 salveDao.insert("com.rainsoft.mvc.mybatis.Staff.insert",object);
          return baseDao.insert("com.rainsoft.mvc.mapper.Staff.insert",object);
 	}
 
@@ -72,6 +79,7 @@ public class StaffServiceImpl implements StaffService{
 	@Override
 	public int update(Staff object){
 		log.info("执行StaffServiceImpl.update： object=>" + object);
+		salveDao.update("com.rainsoft.mvc.mybatis.Staff.update",object);
         return baseDao.update("com.rainsoft.mvc.mapper.Staff.update",object);
 	}
 

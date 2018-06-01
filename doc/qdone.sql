@@ -1134,10 +1134,12 @@ CREATE TABLE `staff` (
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` int(11) NOT NULL,
-  `sname` varchar(20) DEFAULT NULL COMMENT '姓名',
-  `sex` varchar(2) DEFAULT '0' COMMENT '性别(0:女 1：男)',
+  `sname` varchar(100) NOT NULL COMMENT '姓名',
+  `sex` varchar(2) DEFAULT NULL COMMENT '性别',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
-  PRIMARY KEY (`id`)
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.rainsoft.core.dao.BaseDao;
+import com.rainsoft.core.dao.SalveDao;
 import com.rainsoft.core.page.PageList;
 import com.rainsoft.mvc.model.Solr;
 import com.rainsoft.mvc.model.Staff;
@@ -35,8 +36,8 @@ public class SolrServiceImpl implements SolrService{
     @Resource(name = "baseDao")
 	private BaseDao baseDao;
        
-    @Resource(name = "commonDao")
-	private BaseDao commonDao;
+    @Resource(name = "salveDao")
+	private SalveDao salveDao;
     
     
     @Resource(name = "jmsQueueTemplate")
@@ -67,7 +68,7 @@ public class SolrServiceImpl implements SolrService{
 	@Override
 	public int update(Solr object){
 		log.info("执行SolrServiceImpl.update参数： entity==>" + JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss"));
-		List<Staff> arr=commonDao.selectList("com.rainsoft.mvc.mybatis.Staff.select", null);
+		List<Staff> arr=salveDao.selectList("com.rainsoft.mvc.mybatis.Staff.select", null);
 		String msg="测试更新数据时JTA事务,JMS整合";
 		System.out.println(Thread.currentThread().getName() + " 向队列" + jmsTemplate.getDefaultDestination().toString() + "发送消息---------------------->" + msg);
 		jmsTemplate.send(new MessageCreator() {
@@ -78,7 +79,7 @@ public class SolrServiceImpl implements SolrService{
 		if(!CollectionUtils.isEmpty(arr)){
 			Staff st=arr.get(0);
 			st.setSex(null);
-			commonDao.update("com.rainsoft.mvc.mybatis.Staff.update", st);
+			salveDao.update("com.rainsoft.mvc.mybatis.Staff.update", st);
 		}
         return baseDao.update("com.rainsoft.mvc.mapper.Solr.update", object);
 	}
@@ -122,7 +123,7 @@ public class SolrServiceImpl implements SolrService{
 	public int delete(String pk) {
 		log.info("执行SolrServiceImpl.delete参数： pk=>" + pk);
 		int res=baseDao.delete("com.rainsoft.mvc.mapper.Solr.delete", pk);
-		commonDao.delete("com.rainsoft.mvc.mybatis.Staff.delete1", pk);
+		salveDao.delete("com.rainsoft.mvc.mybatis.Staff.delete1", pk);
 		String msg="测试更新数据时JTA事务,JMS整合";
 		System.out.println(Thread.currentThread().getName() + " 向队列" + jmsTemplate.getDefaultDestination().toString() + "发送消息---------------------->" + msg);
 		jmsTemplate.send(new MessageCreator() {

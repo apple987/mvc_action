@@ -183,7 +183,7 @@
 	<bean id="sqlSession2" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory2" />
 	</bean>
-	<bean id="commonDao" class="com.rainsoft.core.dao.BaseDao">
+	<bean id="salveDao" class="com.rainsoft.core.dao.SalveDao">
 		<property name="sqlSessionTemplate" ref="sqlSession2" />
 	</bean>
 
